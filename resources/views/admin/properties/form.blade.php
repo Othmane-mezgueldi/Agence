@@ -1,8 +1,8 @@
 @extends('admin.layout')
-@section('title', $property->exixts ? 'Editer un bien' : 'Créer un bien')
+@section('title', $property->exists ? 'Editer un bien' : 'Créer un bien')
 @section('content')
 
-    <div class="card">
+    <div class="card shadow-sm">
         <div class="card-header">
             <h6 class="fw-bold">
                 @yield('title')
@@ -11,10 +11,10 @@
 
         <div class="card-body">
             <form class="vstack gap-2"
-                action="{{ route($property->exixts ? 'admin.properties.update' : 'admin.properties.store', $property) }}"
-                method="post">
+                action="{{ route($property->exists ? 'admin.properties.update' : 'admin.properties.store', $property) }}"
+                method="POST">
                 @csrf
-                @method($property->exixts ? 'put' : 'post')
+                @method($property->exists ? 'PATCH' : 'POST')
 
                 <div class="row">
                     <div class="col">
@@ -114,12 +114,21 @@
                     </div>
                     {{-- col --}}
 
+                    <div class="col-12 mt-3 mb-2">
+                        @include('shared.checkbox', [
+                            'label' => 'Solde',
+                            'name' => 'sold',
+                            'value' => $property->sold,
+                        ])
+                    </div>
+                    {{-- col --}}
+
                 </div>
                 {{-- row --}}
 
                 <div>
                     <button type="submit" class="btn btn-dark wf-bold">
-                        @if ($property->exixts)
+                        @if ($property->exists)
                             Modifier
                         @else
                             Créer

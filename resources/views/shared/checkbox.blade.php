@@ -1,16 +1,17 @@
 @php
     $label ??= null;
-    $type ??= 'text';
     $class ??= null;
     $name ??= '';
     $value ??= '';
 
 @endphp
 
-<div @class(['form-group mb-2', $class])>
-    <label for="{{ $name }}" class="form-label">{{ $label }}:</label>
-    <input type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" name="{{ $name }}"
-        id="{{ $name }}" placeholder="{{ $label }}" value="{{ old($name, $value) }}" />
+<div @class(['form-check form-switch mb-2', $class])>
+    <label class="form-check-label" for="{{ $name }}">{{ $label }}</label>
+
+    <input type="hidden" value="0" name="{{ $name }}">
+    <input @checked(old($name, $value ?? false)) type="checkbox" value="1" name="{{ $name }}" id="{{ $name }}"
+        class="form-check-input @error($name) is-invalid @enderror" role="switch">
 
     @error($name)
         <small id="helpId" class="invalid-feedback">

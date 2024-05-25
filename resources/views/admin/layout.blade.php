@@ -12,11 +12,18 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
 
-<body>
+<body class="bg-light">
     <header>
         <!-- place navbar here -->
     </header>
     <main class="container mt-3">
+
+        @if (session('success'))
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Alert </strong> {{ session('success') }}
+            </div>
+        @endif
         @yield('content')
     </main>
     <footer>
